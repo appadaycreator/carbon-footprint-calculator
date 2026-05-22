@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カーボンフットプリント計算ツール【無料】簡単・無料計算</title>
+    <meta name="description" content="日常生活（移動・食事・電力）からCO2排出量を計算。削減アドバイスも提案。登録不要・完全無料でご利用いただけます。">
+    <link rel="canonical" href="https://appadaycreator.github.io/carbon-footprint-calculator/">
+    <meta property="og:title" content="カーボンフットプリント計算ツール【無料】簡単・無料計算">
+    <meta property="og:description" content="日常生活（移動・食事・電力）からCO2排出量を計算。削減アドバイスも提案。登録不要・完全無料でご利用いただけます。">
+    <meta property="og:url" content="https://appadaycreator.github.io/carbon-footprint-calculator/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ja_JP">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <!-- GTM -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TXQGZRF9');</script>
+    <!-- Clarity -->
+    <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","s3t9vl8h3v");</script>
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427583028015858" crossorigin="anonymous"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"カーボンフットプリント計算ツール","description":"日常生活（移動・食事・電力）からCO2排出量を計算。削減アドバイスも提案。登録不要・完全無料でご利用いただけます。","url":"https://appadaycreator.github.io/carbon-footprint-calculator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"}}</script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background: linear-gradient(135deg, #D1FAE5 0%, #F0FDF4 100%); min-height: 100vh; color: #333; line-height: 1.6; }
+        .site-header { background: #059669; color: white; padding: 32px 20px; text-align: center; }
+        .site-header .emoji { font-size: 52px; margin-bottom: 8px; }
+        .site-header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .site-header p { font-size: 14px; opacity: 0.9; }
+        .container { max-width: 800px; margin: 0 auto; padding: 16px; }
+        .card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 16px; }
+        .btn { background: #059669; color: white; border: none; padding: 14px 24px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; transition: opacity .2s; }
+        .btn:hover { opacity: 0.9; }
+        .btn:active { transform: scale(0.98); }
+        input, select, textarea { width: 100%; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 15px; margin-top: 4px; font-family: inherit; }
+        input:focus, select:focus { outline: none; border-color: #059669; }
+        label { font-size: 13px; font-weight: 600; color: #555; display: block; margin-top: 14px; margin-bottom: 2px; }
+        .result { display: none; }
+        .result.show { display: block; }
+        .result-value { font-size: 36px; font-weight: 700; color: #059669; text-align: center; padding: 16px 0; }
+        .badge { display: inline-block; background: #05966920; color: #059669; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        /* ── サービス固有CSS ── */
+
+        .section-title {
+          font-size: 14px;
+          font-weight: 700;
+          color: #065f46;
+          background: #D1FAE5;
+          border-left: 4px solid #059669;
+          padding: 6px 10px;
+          border-radius: 0 6px 6px 0;
+          margin: 16px 0 10px;
+        }
+        .co2-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 10px;
+        }
+        .co2-row label {
+          flex: 1;
+          font-size: 13px;
+          color: #374151;
+          min-width: 120px;
+        }
+        .co2-row input, .co2-row select {
+          flex: 1;
+          border: 1.5px solid #6ee7b7;
+          border-radius: 8px;
+          padding: 7px 10px;
+          font-size: 14px;
+          outline: none;
+          color: #065f46;
+        }
+        .co2-row input:focus, .co2-row select:focus {
+          border-color: #059669;
+          box-shadow: 0 0 0 2px rgba(5,150,105,0.1);
+        }
+        .co2-unit {
+          font-size: 12px;
+          color: #666;
+          white-space: nowrap;
+        }
+        .result-gauge {
+          position: relative;
+          height: 20px;
+          background: #e5e7eb;
+          border-radius: 999px;
+          overflow: hidden;
+          margin: 10px 0;
+        }
+        .result-gauge-bar {
+          height: 100%;
+          border-radius: 999px;
+          transition: width 0.6s ease;
+        }
+        .advice-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+          background: #f0fdf4;
+          border-radius: 8px;
+          padding: 8px 10px;
+          margin-bottom: 6px;
+          font-size: 13px;
+          color: #065f46;
+        }
+    </style>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXQGZRF9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <header class="site-header">
+        <div class="emoji">🌍</div>
+        <h1>カーボンフットプリント計算ツール</h1>
+        <p>日常生活（移動・食事・電力）からCO2排出量を計算。削減アドバイスも提案。</p>
+    </header>
+
+    <main class="container">
+        <ins class="adsbygoogle" style="display:block;margin:12px 0" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+
+        <div class="card">
+          <h2 style="font-size:18px;font-weight:700;margin-bottom:4px;">🌱 カーボンフットプリント計算</h2>
+          <p style="font-size:13px;color:#888;margin-bottom:8px;">1ヶ月あたりのCO2排出量（kg）を計算します</p>
+
+          <div class="section-title">🚗 移動・交通</div>
+          <div class="co2-row">
+            <label>車の走行距離</label>
+            <input type="number" id="carKm" placeholder="0" min="0">
+            <span class="co2-unit">km/月</span>
+          </div>
+          <div class="co2-row">
+            <label>燃料タイプ</label>
+            <select id="carFuel">
+              <option value="0.21">ガソリン車</option>
+              <option value="0.12">ハイブリッド車</option>
+              <option value="0.05">電気自動車</option>
+            </select>
+            <span class="co2-unit"></span>
+          </div>
+          <div class="co2-row">
+            <label>電車・バス利用</label>
+            <input type="number" id="transitKm" placeholder="0" min="0">
+            <span class="co2-unit">km/月</span>
+          </div>
+          <div class="co2-row">
+            <label>飛行機（国内線）</label>
+            <input type="number" id="flightH" placeholder="0" min="0">
+            <span class="co2-unit">時間/月</span>
+          </div>
+
+          <div class="section-title">🍽️ 食事</div>
+          <div class="co2-row">
+            <label>肉食の頻度</label>
+            <select id="meatFreq">
+              <option value="55">ほぼ毎日</option>
+              <option value="35">週3〜4回</option>
+              <option value="20">週1〜2回</option>
+              <option value="8">ほとんど食べない</option>
+              <option value="3">完全菜食</option>
+            </select>
+            <span class="co2-unit">kg-CO2/月相当</span>
+          </div>
+
+          <div class="section-title">⚡ 電力・エネルギー</div>
+          <div class="co2-row">
+            <label>月間電力使用量</label>
+            <input type="number" id="electric" placeholder="300" min="0">
+            <span class="co2-unit">kWh/月</span>
+          </div>
+          <div class="co2-row">
+            <label>ガス使用量</label>
+            <input type="number" id="gas" placeholder="20" min="0">
+            <span class="co2-unit">m³/月</span>
+          </div>
+
+          <button class="btn" onclick="calcCarbon()" style="width:100%;margin-top:16px;">CO2排出量を計算する</button>
+
+          <div class="result" id="result" style="margin-top:16px;">
+            <div class="card" style="background:linear-gradient(135deg,#D1FAE5,#F0FDF4);">
+              <div style="text-align:center;margin-bottom:12px;">
+                <div style="font-size:13px;color:#065f46;margin-bottom:4px;">あなたの月間CO2排出量</div>
+                <div style="font-size:2.5rem;font-weight:800;color:#059669;" id="totalCO2">0</div>
+                <div style="font-size:15px;color:#059669;font-weight:600;">kg-CO2/月</div>
+              </div>
+              <div class="result-gauge">
+                <div class="result-gauge-bar" id="gaugeBar" style="width:0%"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:#888;margin-bottom:12px;">
+                <span>0</span><span>日本平均: 400kg</span><span>800kg+</span>
+              </div>
+              <div style="font-size:14px;font-weight:700;color:#065f46;margin-bottom:8px;" id="levelMsg"></div>
+              <div id="adviceArea"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 関連サービス -->
+        <div class="card" style="margin-top:8px;">
+            <h3 style="font-size:13px;font-weight:600;color:#888;margin-bottom:10px;">🔗 関連サービス</h3>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+                <a href="https://appadaycreator.github.io/green-diary-app/" style="color:#6366f1;font-size:13px;text-decoration:none;padding:6px 0;border-bottom:1px solid #f1f5f9;">Green Diary App →</a>
+                <a href="https://appadaycreator.github.io/electricity-plan-advisor/" style="color:#6366f1;font-size:13px;text-decoration:none;padding:6px 0;border-bottom:1px solid #f1f5f9;">⚡ 電力会社・プラン最適診断 →</a>
+                <a href="https://appadaycreator.github.io/gasoline-cost-calculator/" style="color:#6366f1;font-size:13px;text-decoration:none;padding:6px 0;border-bottom:1px solid #f1f5f9;">⛽ ガソリン代計算ツール →</a>
+            </div>
+        </div>
+
+        <ins class="adsbygoogle" style="display:block;margin:12px 0" data-ad-client="ca-pub-8427583028015858" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </main>
+
+    <footer style="text-align:center;padding:20px;color:white;font-size:12px;opacity:0.75;margin-top:8px;">
+        <p><a href="https://appadaycreator.github.io/" style="color:white;">AppADayCreator</a>
+        | <a href="privacy-policy.html" style="color:white;">プライバシーポリシー</a>
+        | <a href="terms.html" style="color:white;">利用規約</a>
+        | <a href="contact.html" style="color:white;">お問い合わせ</a></p>
+        <p style="margin-top:6px;">© 2025 AppADayCreator. All services are free.</p>
+    </footer>
+
+    <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('electric').value = 300;
+      document.getElementById('gas').value = 20;
+    });
+
+    function calcCarbon() {
+      const carKm    = parseFloat(document.getElementById('carKm').value) || 0;
+      const carFactor= parseFloat(document.getElementById('carFuel').value);
+      const transit  = parseFloat(document.getElementById('transitKm').value) || 0;
+      const flightH  = parseFloat(document.getElementById('flightH').value) || 0;
+      const meat     = parseFloat(document.getElementById('meatFreq').value);
+      const electric = parseFloat(document.getElementById('electric').value) || 0;
+      const gas      = parseFloat(document.getElementById('gas').value) || 0;
+
+      const co2Car     = carKm * carFactor;
+      const co2Transit = transit * 0.04;
+      const co2Flight  = flightH * 80;
+      const co2Meat    = meat;
+      const co2Elec    = electric * 0.46;
+      const co2Gas     = gas * 2.23;
+
+      const total = co2Car + co2Transit + co2Flight + co2Meat + co2Elec + co2Gas;
+
+      document.getElementById('totalCO2').textContent = total.toFixed(1);
+
+      const pct = Math.min(100, (total / 800) * 100);
+      let barColor;
+      if (total < 200)      barColor = '#059669';
+      else if (total < 400) barColor = '#84cc16';
+      else if (total < 600) barColor = '#f59e0b';
+      else                  barColor = '#ef4444';
+      const bar = document.getElementById('gaugeBar');
+      bar.style.width = pct + '%';
+      bar.style.background = barColor;
+
+      let level;
+      if (total < 200)      level = '素晴らしい！環境負荷が非常に低いです';
+      else if (total < 400) level = '良好！日本平均以下でエコな生活です';
+      else if (total < 600) level = '普通。少し削減を意識しましょう';
+      else                  level = '高め。積極的な削減が効果的です';
+      document.getElementById('levelMsg').textContent = level;
+
+      const advices = [];
+      if (co2Car > 30)     advices.push({ icon: '🚗', text: '車の利用を減らして公共交通機関を活用しましょう' });
+      if (co2Elec > 100)   advices.push({ icon: '💡', text: 'LED照明への交換や家電の省エネ設定を見直しましょう' });
+      if (co2Meat > 30)    advices.push({ icon: '🥗', text: '週1〜2回、肉なしの日（ミートフリーデー）を設けましょう' });
+      if (co2Flight > 100) advices.push({ icon: '✈️', text: '飛行機の利用を減らし、新幹線や車の活用を検討しましょう' });
+      if (co2Gas > 40)     advices.push({ icon: '🔥', text: 'ガスの使用を節約し、シャワー時間を短縮しましょう' });
+      if (advices.length === 0) advices.push({ icon: '✅', text: '現在の生活スタイルを継続してください！' });
+
+      document.getElementById('adviceArea').innerHTML = advices.map(a =>
+        `<div class="advice-item"><span>${a.icon}</span><span>${a.text}</span></div>`
+      ).join('');
+
+      document.getElementById('result').classList.add('show');
+    }
+    </script>
+</body>
+</html>
